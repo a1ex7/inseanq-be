@@ -38,7 +38,21 @@
 
                     <!-- Right Side Of Navbar -->
                     <ul class="navbar-nav ml-auto">
-
+                        <li class="nav-item {{ Route::currentRouteName() === 'students.index' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('students.index') }}">{{ __('Students') }}</a>
+                        </li>
+                        <li class="nav-item {{ Route::currentRouteName() === 'groups.index' ? 'active' : '' }}">
+                            <a class="nav-link" href="{{ route('groups.index') }}">{{ __('Groups') }}</a>
+                        </li>
+                        <li class="nav-item dropdown">
+                            <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                {{ __('Add new') }}
+                            </a>
+                            <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                <a class="dropdown-item" href="{{ route('students.create') }}">{{ __('Student') }}</a>
+                                <a class="dropdown-item" href="{{ route('groups.create') }}">{{ __('Group') }}</a>
+                            </div>
+                        </li>
                     </ul>
                 </div>
             </div>

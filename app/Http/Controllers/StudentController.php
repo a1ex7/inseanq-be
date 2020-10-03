@@ -2,8 +2,8 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\CreateStudentRequest;
-use App\Http\Requests\UpdateStudentRequest;
+use App\Http\Requests\Students\CreateStudentRequest;
+use App\Http\Requests\Students\UpdateStudentRequest;
 use App\Models\Group;
 use App\Models\Student;
 use Exception;
@@ -56,7 +56,7 @@ class StudentController extends Controller
      */
     public function store(CreateStudentRequest $request): RedirectResponse
     {
-        $student = Student::create($request->all());
+        Student::create($request->validated());
         return redirect()
             ->route('students.index')
             ->with('message', __('Student was created'));
@@ -87,7 +87,7 @@ class StudentController extends Controller
      */
     public function update(UpdateStudentRequest $request, Student $student): RedirectResponse
     {
-        $student->update($request->all());
+        $student->update($request->validated());
 
         return redirect()
             ->route('students.index')

@@ -6,9 +6,9 @@
             <div class="col-md-12">
                 <div class="card">
 
-                    <div class="card-header">{{ __('Students') }}
+                    <div class="card-header">{{ __('Groups') }}
                         <div class="card-header-actions">
-                            <a href="{{ route('students.create') }}" class="card-header-action">
+                            <a href="{{ route('groups.create') }}" class="card-header-action">
                                 {{ __('Create') }}
                             </a>
                         </div>
@@ -17,25 +17,28 @@
                     <div class="card-body">
 
                         @include('components.message')
-                        @include('components.search', ['route' => 'students.index'])
+                        @include('components.search', ['route' => 'groups.index'])
 
                         <div class="table-responsive">
                             <table class="table table-striped">
                                 <thead>
                                 <tr>
-                                    <th id="">{{ __('Name') }}
-                                    <th id="">{{ __('Birthday') }}
-                                    <th id="">{{ __('Group') }}
+                                    <th id="">{{ __('Number') }}</th>
+                                    <th id="">{{ __('Course') }}</th>
+                                    <th id="">{{ __('Faculty') }}</th>
+                                    <th id="">{{ __('Students') }}</th>
                                     <th id="">{{ __('Actions') }}</th>
                                 </tr>
                                 </thead>
                                 <tbody>
-                                @each('students.row', $students, 'student')
+
+                                @each('groups.row', $groups, 'group')
+
                                 </tbody>
                             </table>
                         </div>
 
-                        @include('components.paginator', ['items' => $students])
+                        @include('components.paginator', ['items' => $groups])
 
                     </div>
                 </div>

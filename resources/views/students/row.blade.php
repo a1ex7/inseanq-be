@@ -1,7 +1,13 @@
 <tr>
     <td>{{ $student->fullName }}</td>
     <td>{{ $student->birthday->format('d.m.Y') }}</td>
-    <td>{{ $student->group->number }}</td>
+    <td>
+        @isset($student->group)
+        <a href="{{ route('students.index', ['search' => $student->group->number]) }}">
+            {{ $student->group->number }}
+        </a>
+        @endisset
+    </td>
     <td>
         {{ Form::open([
             'method' => 'DELETE',

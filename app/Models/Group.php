@@ -21,4 +21,12 @@ class Group extends Model
     {
         return $this->hasMany(Student::class);
     }
+
+    public function scopeSearch($query, $value)
+    {
+        return $query
+            ->where('number', 'like', '%'.$value.'%')
+            ->orWhere('course', $value)
+            ->orWhere('faculty', '%'.$value.'%');
+    }
 }
