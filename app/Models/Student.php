@@ -14,8 +14,8 @@ class Student extends Model
         'group_id', 'firstname', 'lastname', 'surname', 'birthday'
     ];
 
-    protected $casts = [
-        'birthday' => 'date',
+    protected $dates = [
+        'birthday'
     ];
 
     /**
@@ -24,5 +24,22 @@ class Student extends Model
     public function group(): BelongsTo
     {
         return $this->belongsTo(Group::class);
+    }
+
+    public function getFullNameAttribute()
+    {
+        return implode(' ', [
+            $this->getAttribute('lastname'),
+            $this->getAttribute('firstname'),
+            $this->getAttribute('surname'),
+        ]);
+    }
+
+    public function scopeSearch($query, $value)
+    {
+        return $query
+            ->where('firstname', 'like', '%'.$value.'%')
+            ->orWhere('lastname', '%'.$value.'%')
+            ->orWhere('surname', '%'.$value.'%');
     }
 }
