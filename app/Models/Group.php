@@ -27,6 +27,6 @@ class Group extends Model
         return $query
             ->where('number', 'like', '%'.$value.'%')
             ->orWhere('course', $value)
-            ->orWhere('faculty', '%'.$value.'%');
+            ->orWhere('faculty', 'like', '%'.$value.'%');
     }
 }

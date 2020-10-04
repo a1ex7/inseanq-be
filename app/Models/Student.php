@@ -39,8 +39,8 @@ class Student extends Model
     {
         return $query
             ->where('firstname', 'like', '%'.$value.'%')
-            ->orWhere('lastname', '%'.$value.'%')
-            ->orWhere('surname', '%'.$value.'%')
+            ->orWhere('lastname','like', '%'.$value.'%')
+            ->orWhere('surname', 'like', '%'.$value.'%')
             ->orWhereHas('group', function($query) use ($value) {
                 return $query->where('number', $value);
             });
