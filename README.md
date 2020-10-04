@@ -26,3 +26,8 @@ make shell
 ```
 make node
 ```
+
+#### Test
+```
+make test
+```
