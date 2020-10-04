@@ -42,10 +42,9 @@ watch: up ## Start watching assets for changes (node)
 	$(docker_compose_bin) run --rm "$(NODE_CONTAINER_NAME)" npm run watch
 
 init: install ## Make full application initialization (install, seed, build assets, etc)
-	$(docker_compose_bin) exec "$(APP_CONTAINER_NAME)" artisan migrate --force --no-interaction -vvv
-	$(docker_compose_bin) exec "$(APP_CONTAINER_NAME)" artisan db:seed --force -vvv
+	$(docker_compose_bin) exec "$(APP_CONTAINER_NAME)" php artisan migrate --force --no-interaction -vvv
+	$(docker_compose_bin) exec "$(APP_CONTAINER_NAME)" php artisan db:seed --force -vvv
 	$(docker_compose_bin) run --rm "$(NODE_CONTAINER_NAME)" npm run dev
 
 test: up ## Execute application tests
-	$(docker_compose_bin) exec "$(APP_CONTAINER_NAME)" composer phpstan
-	$(docker_compose_bin) exec "$(APP_CONTAINER_NAME)" composer test
+	$(docker_compose_bin) exec "$(APP_CONTAINER_NAME)" php artisan test

@@ -13,6 +13,9 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
+Route::resource('students', 'StudentController')->except('show');
+Route::resource('groups', 'GroupController')->except('show');
+
 Route::get('/', function () {
     return view('welcome');
 });
