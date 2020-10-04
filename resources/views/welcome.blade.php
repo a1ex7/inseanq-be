@@ -65,30 +65,16 @@
     </head>
     <body>
         <div class="flex-center position-ref full-height">
-            @if (Route::has('login'))
-                <div class="top-right links">
-                    @auth
-                        <a href="{{ url('/home') }}">Home</a>
-                    @else
-                        <a href="{{ route('login') }}">Login</a>
-
-                        @if (Route::has('register'))
-                            <a href="{{ route('register') }}">Register</a>
-                        @endif
-                    @endauth
-                </div>
-            @endif
-
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                    {{ config('app.name') }}
                 </div>
 
                 <div class="links">
                     <a href="{{ route('students.index') }}">Students list</a>
-                    <a href="{{ route('students.create') }}">Add student</a>
+                    <a href="{{ route('students.create') }}">+ Add student</a>
                     <a href="{{ route('groups.index') }}">Groups</a>
-                    <a href="{{ route('groups.create') }}">Add group</a>
+                    <a href="{{ route('groups.create') }}">+ Add group</a>
                 </div>
             </div>
         </div>
