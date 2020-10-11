@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\Groups\CreateGroupRequest;
 use App\Http\Requests\Groups\UpdateGroupRequest;
 use App\Models\Group;
+use App\Models\Student;
 use Exception;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
@@ -39,11 +40,16 @@ class GroupController extends Controller
     public function create()
     {
         $group = new Group();
+        $studentsList = Student::orderBy('lastname')
+            ->get()
+            ->pluck('fullName', 'id');
 
         return view('groups.create', [
-            'group' => $group,
+            'group'        => $group,
+            'studentsList' => $studentsList,
         ]);
     }
+
 
     /**
      * Store a newly created resource in storage.
@@ -53,7 +59,12 @@ class GroupController extends Controller
      */
     public function store(CreateGroupRequest $request): RedirectResponse
     {
-        Group::create($request->all());
+        $group = Group::create($request->all());
+        if ($request->input('student_id') !== null) {
+            $student = Student::findOrFail($request->input('student_id'));
+            $group->students()->save($student);
+        }
+
         return redirect()
             ->route('groups.index')
             ->with('message', __('Group was created'));
@@ -67,8 +78,13 @@ class GroupController extends Controller
      */
     public function edit(Group $group)
     {
+        $studentsList = Student::orderBy('lastname')
+            ->get()
+            ->pluck('fullName', 'id');
+
         return view('groups.update', [
-            'group' => $group
+            'group'        => $group,
+            'studentsList' => $studentsList,
         ]);
     }
 
